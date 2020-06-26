@@ -2,10 +2,10 @@
 ### Recreating a SwiftUI hierarchy in vanilla Swift
 
 
-Complementary repository for article series [SwiftUI DSL explained]. Take a look at [`ContentView.swift`] for more.
+Complementary repository for article series [SwiftUI DSL explained]. The following snippets produce identical results (take a look at [`ContentView.swift`] for more).
 
 ```Swift
-struct ContentView_with_modifiers_standard: View
+struct ContentView: View
 {
         
     
