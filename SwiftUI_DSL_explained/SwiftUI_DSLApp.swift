@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_DSL_explainedApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView_typed()
+            ContentView_with_modifiers_and_branching_dissected()
         }
     }
 }
