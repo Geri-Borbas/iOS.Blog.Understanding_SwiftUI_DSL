@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct SwiftUI_DSLApp: App {
+struct SwiftUI_DSL_explainedApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView_typed()
         }
     }
 }
