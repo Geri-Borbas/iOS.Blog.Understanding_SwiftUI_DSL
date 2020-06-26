@@ -5,6 +5,22 @@
 Complementary repository for article series [SwiftUI DSL explained]. Take a look at [`ContentView.swift`] for more.
 
 ```Swift
+struct ContentView_with_modifiers_standard: View
+{
+        
+    
+    var body: some View
+    {
+        HStack
+        {
+            Text("Hello")
+            Text("world!").bold().padding(-5)
+        }
+    }
+}
+```
+
+```Swift
 struct ContentView: View
 {
     
