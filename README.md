@@ -1,5 +1,5 @@
 # SwiftUI DSL explained
-### Recreating SwiftUI with vanilla Swift
+### Recreating a SwiftUI hierarchy in vanilla Swift
 
 
 Complementary repository for article series [SwiftUI DSL explained]. Take a look at [`ContentView.swift`] for more.
