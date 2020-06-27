@@ -26,12 +26,7 @@ struct ViewBuilder_extension: View
             Text("3")
             Text("4")
             Text("5")
-            
-            if when
-            { Text("6") }
-            else
-            { Text("Never happens") }
-            
+            Text("6")
             Text("7")
             Text("8")
             Text("9")

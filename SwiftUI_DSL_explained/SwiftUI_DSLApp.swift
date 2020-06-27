@@ -7,11 +7,15 @@
 
 import SwiftUI
 
+
 @main
-struct SwiftUI_DSL_explainedApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ConditionalContent_If_standard()
-        }
+struct SwiftUI_DSL_explainedApp: App
+{
+    
+    
+    var body: some Scene
+    {
+        WindowGroup
+        { ConditionalContent_If_inspect() }
     }
 }
