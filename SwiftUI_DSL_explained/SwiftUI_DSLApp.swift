@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_DSL_explainedApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView_with_modifiers_and_branching_dissected()
+            ConditionalContent_If_standard()
         }
     }
 }

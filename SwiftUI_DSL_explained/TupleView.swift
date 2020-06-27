@@ -10,10 +10,11 @@ import SwiftUI
 
 // Nothing to do with bindings, or view updates, this is all compile time stuff.
 // Function builders are great indeed, but `TupleView` seems more central to the design.
+// Function builders are actually a way to assemble tuples from function arguments.
+// See `ModifiedContent_explicit_tuples` for more.
 
 
-/// Standard SwiftUI.
-struct ContentView_standard: View
+struct TupleView_standard: View
 {
         
     
@@ -28,9 +29,7 @@ struct ContentView_standard: View
 }
 
 
-/// Removing omitted return keyword.
-/// More at https://github.com/apple/swift-evolution/blob/master/proposals/0255-omit-return.md.
-struct ContentView_without_Omitted_return: View
+struct TupleView_without_Omitted_return: View
 {
         
     
@@ -45,9 +44,7 @@ struct ContentView_without_Omitted_return: View
 }
 
 
-/// Removing opaque return types.
-/// More at https://github.com/apple/swift-evolution/blob/master/proposals/0244-opaque-result-types.md.
-struct ContentView_without_Opaque_return_types: View
+struct TupleView_without_Opaque_return_types: View
 {
         
     
@@ -62,9 +59,7 @@ struct ContentView_without_Opaque_return_types: View
 }
 
 
-/// Explicit function builders in stack.
-/// More at https://github.com/apple/swift-evolution/pull/1046.
-struct ContentView_explicit_Function_Builders: View
+struct TupleView_explicit_Function_Builders: View
 {
     
     
@@ -80,9 +75,7 @@ struct ContentView_explicit_Function_Builders: View
 }
 
 
-/// Explicit and typed function builders in stack.
-/// More at https://github.com/apple/swift-evolution/pull/1046.
-struct ContentView_explicit_and_typed_Function_Builders: View
+struct TupleView_explicit_and_typed_Function_Builders: View
 {
     
     
@@ -101,9 +94,7 @@ struct ContentView_explicit_and_typed_Function_Builders: View
 }
 
 
-/// Without function builders and typed.
-/// More at https://github.com/apple/swift-evolution/pull/1046.
-struct ContentView_without_Function_Builders_and_typed: View
+struct TupleView_without_Function_Builders_and_typed: View
 {
     
     
@@ -121,8 +112,7 @@ struct ContentView_without_Function_Builders_and_typed: View
 }
 
 
-/// Everything dissected.
-struct ContentView_dissected: View
+struct TupleView_dissected: View
 {
     
     
@@ -145,8 +135,24 @@ struct ContentView_dissected: View
 }
 
 
-/// Standard SwiftUI (with modifiers).
-struct ContentView_with_modifiers_standard: View
+struct TupleView_without_function_builders: View
+{
+    
+    
+    var body: some View
+    {
+        return HStack(content:
+        {
+            return TupleView((
+                Text("Hello"),
+                Text("world!")
+            ))
+        })
+    }
+}
+
+
+struct ModifiedContent_standard: View
 {
         
     
@@ -161,9 +167,7 @@ struct ContentView_with_modifiers_standard: View
 }
 
 
-
-/// SwiftUI (with modifiers) dissected.
-struct ContentView_with_modifiers_dissected: View
+struct ModifiedContent_dissected: View
 {
     
     
@@ -189,71 +193,19 @@ struct ContentView_with_modifiers_dissected: View
 }
 
 
-/// Standard SwiftUI (with modifiers and branching).
-struct ContentView_with_modifiers_and_branching_standard: View
+struct ModifiedContent_explicit_tuples: View
 {
-
-    
-    let useBoldFont = true
     
     
     var body: some View
     {
-        return HStack
+        return HStack(content:
         {
-            Text("Hello")
-            switch useBoldFont
-            {
-                case false:
-                    Text("world!")
-                case true:
-                    Text("world!").bold().padding(-5)
-            }
-        }
-    }
-}
-
-
-/// SwiftUI (with modifiers and branching) dissected.
-struct ContentView_with_modifiers_and_branching_dissected: View
-{
-
-    
-    @State var useBoldFont = true
-    
-    
-    var body: some View
-    {
-        // Text (with modifiers).
-        let helloText: Text = Text("Hello")
-        let worldText: Text = Text("world!")
-        let modifiedWorldText: ModifiedContent<Text, _PaddingLayout> =
-            worldText.padding(-5) as! ModifiedContent<Text, _PaddingLayout>
-        let boldWorldText: Text = worldText.bold()
-        let modifiedBoldWorldText: ModifiedContent<Text, _PaddingLayout> =
-            boldWorldText.padding(-5) as! ModifiedContent<Text, _PaddingLayout>
-            
-        // Conditional content.
-        let groupedConditionalContent: Group<_ConditionalContent<ModifiedContent<Text, _PaddingLayout>, ModifiedContent<Text, _PaddingLayout>>> =
-            Group
-            {
-                switch useBoldFont
-                {
-                    case false:
-                        modifiedWorldText
-                    case true:
-                        modifiedBoldWorldText
-                }
-            }
-        
-        // Let tuple creation and function builders standard this time.
-        return HStack
-        {
-            helloText
-            groupedConditionalContent
-        }
-            .onTapGesture
-            { useBoldFont.toggle() }
+            return TupleView((
+                Text("Hello"),
+                Text("world!").bold().padding(-5)
+            ))
+        })
     }
 }
 
@@ -265,5 +217,5 @@ struct ContentView_Previews: PreviewProvider
     
     
     static var previews: some View
-    { return ContentView_with_modifiers_and_branching_dissected() }
+    { return ModifiedContent_dissected() }
 }
