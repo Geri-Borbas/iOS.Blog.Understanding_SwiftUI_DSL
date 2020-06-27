@@ -14,7 +14,8 @@ struct ConditionalContent_If_standard: View
 {
 
     
-    @State var useBoldFont = true
+    // @State
+    var useBoldFont = true
     
     
     var body: some View
@@ -28,73 +29,62 @@ struct ConditionalContent_If_standard: View
             else
             { Text("world!").bold().padding(-5) }
         }
-            .onTapGesture
-            { self.useBoldFont.toggle() }
+            // .onTapGesture
+            // { self.useBoldFont.toggle() }
     }
 }
 
 
 /// Standard SwiftUI (with modifiers and branching).
-struct ConditionalContent_If_inspect: View
+/// More at https://developer.apple.com/documentation/swiftui/viewbuilder/buildeither(first:)
+/// This also can help at https://github.com/Cosmo/OpenSwiftUI/blob/master/Sources/OpenSwiftUI/ViewBuilder.swift
+ struct ConditionalContent_If_inspect: View
 {
 
     
-    @State var useBoldFont = true
+    // @State
+    var useBoldFont = true
     
     
     typealias ModifiedTextType = ModifiedContent<Text, _PaddingLayout>
     
     
-    var body: some View
+    var body: HStack<TupleView<(Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>)>>
     {
         HStack
         {
-            () -> TupleView<(Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>)> in
+            // () -> TupleView<(Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>)> in
             
             // Views.
             let text: Text = Text("Hello")
-            let modifiedText: ModifiedTextType = Text("world!").padding(-5) as! ModifiedTextType
-            let modifiedBoldText: ModifiedTextType = Text("world!").bold().padding(-5) as! ModifiedTextType
+            let worldText: ModifiedTextType = Text("world!").padding(-5) as! ModifiedTextType
+            let boldWorldText: ModifiedTextType = Text("world!").bold().padding(-5) as! ModifiedTextType
+                        
+            // Create content for each branch.
+            let trueContent: _ConditionalContent<ModifiedTextType, ModifiedTextType> =
+                ViewBuilder.buildEither(first: worldText)
+                // Equivalent to _ConditionalContent<ModifiedTextType, ModifiedTextType>(storage: .trueContent(worldText))
             
-            // Conditional content.
-            let conditionalContent: _ConditionalContent<ModifiedTextType, ModifiedTextType> =
-                ViewBuilder.buildBlock(
-                    
-                    useBoldFont ?
-                        
-                        // buildEither(first:)
-                        // Provides support for “if” statements in multi-statement
-                        // closures, producing ConditionalContent for the “then” branch.
-                        ViewBuilder.buildEither(first: modifiedText) :
-                        
-                        // buildEither(second:)
-                        // Provides support for “if-else” statements in multi-statement
-                        // closures, producing ConditionalContent for the “else” branch.
-                        ViewBuilder.buildEither(second: modifiedBoldText)
-                   )
+            let falseContent: _ConditionalContent<ModifiedTextType, ModifiedTextType> =
+                ViewBuilder.buildEither(second: boldWorldText)
+                // Equivalent to _ConditionalContent<ModifiedTextType, ModifiedTextType>(storage: .falseContent(boldWorldText))
+            
+            // Pick either conditional content at runtime.
+            let trueOrFalseContent: _ConditionalContent<ModifiedTextType, ModifiedTextType> =
+                useBoldFont ? trueContent : falseContent
             
             // Tuple.
             let tuple: (Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>) =
-                (text, conditionalContent)
+                (text, trueOrFalseContent)
             let tupleView: TupleView<(Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>)> =
                 TupleView(tuple)
             
             return tupleView
         }
-            .onTapGesture
-            { self.useBoldFont.toggle() }
+            // .onTapGesture
+            // { self.useBoldFont.toggle() }
     }
 }
-
-
-// https://developer.apple.com/documentation/swiftui/viewbuilder/buildeither(first:)
-// https://forums.swift.org/t/swiftui-viewbuilder-can-be-applied-to-body/31120/2
-// https://github.com/Cosmo/OpenSwiftUI/blob/master/Sources/OpenSwiftUI/ViewBuilder.swift
-
-//if condition
-//{ return _ConditionalContent<Text, Rectangle>(first: Text("Text")) }
-//else
-//{ return _ConditionalContent<Text, Rectangle>(second: Rectangle()) }
 
 
 /// Standard SwiftUI (with modifiers and branching).
