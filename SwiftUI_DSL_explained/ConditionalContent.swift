@@ -9,151 +9,156 @@ import Foundation
 import SwiftUI
 
 
-/// Standard SwiftUI (with modifiers and branching).
 struct ConditionalContent_If_standard: View
 {
 
     
-    // @State
     var useBoldFont = true
     
     
     var body: some View
     {
-        HStack
+        VStack
         {
             Text("Hello")
             
             if useBoldFont
-            { Text("world!").padding(-5) }
+            { Text("world!").bold() }
             else
-            { Text("world!").bold().padding(-5) }
+            { Text("world!") }
         }
-            // .onTapGesture
-            // { self.useBoldFont.toggle() }
     }
 }
 
 
-/// Standard SwiftUI (with modifiers and branching).
 /// More at https://developer.apple.com/documentation/swiftui/viewbuilder/buildeither(first:)
 /// This also can help at https://github.com/Cosmo/OpenSwiftUI/blob/master/Sources/OpenSwiftUI/ViewBuilder.swift
- struct ConditionalContent_If_inspect: View
+struct ConditionalContent_If_article: View
 {
-
     
-    // @State
+    
     var useBoldFont = true
+   
     
-    
-    typealias ModifiedTextType = ModifiedContent<Text, _PaddingLayout>
-    
-    
-    var body: HStack<TupleView<(Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>)>>
+    var body: HStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>
     {
         HStack
         {
-            // () -> TupleView<(Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>)> in
-            
             // Views.
-            let text: Text = Text("Hello")
-            let worldText: ModifiedTextType = Text("world!").padding(-5) as! ModifiedTextType
-            let boldWorldText: ModifiedTextType = Text("world!").bold().padding(-5) as! ModifiedTextType
-                        
+            let helloText: Text = Text("Hello")
+            let worldText: Text = Text("world!")
+            let boldWorldText: Text = Text("world!").bold()
+           
             // Create content for each branch.
-            let trueContent: _ConditionalContent<ModifiedTextType, ModifiedTextType> =
-                ViewBuilder.buildEither(first: worldText)
-                // Equivalent to _ConditionalContent<ModifiedTextType, ModifiedTextType>(storage: .trueContent(worldText))
-            
-            let falseContent: _ConditionalContent<ModifiedTextType, ModifiedTextType> =
-                ViewBuilder.buildEither(second: boldWorldText)
-                // Equivalent to _ConditionalContent<ModifiedTextType, ModifiedTextType>(storage: .falseContent(boldWorldText))
-            
-            // Pick either conditional content at runtime.
-            let trueOrFalseContent: _ConditionalContent<ModifiedTextType, ModifiedTextType> =
+            let trueContent: _ConditionalContent<Text, Text> =
+                ViewBuilder.buildEither(first: boldWorldText)
+                // Equivalent to _ConditionalContent<Text, Text>(storage: .trueContent(worldText))
+           
+            let falseContent: _ConditionalContent<Text, Text> =
+                ViewBuilder.buildEither(second: worldText)
+                // Equivalent to _ConditionalContent<Text, Text>(storage: .falseContent(boldWorldText))
+           
+            // Pick either conditional content at runtime (with a type designating both).
+            let boldWorldTextOrWorldText: _ConditionalContent<Text, Text> =
                 useBoldFont ? trueContent : falseContent
-            
-            // Tuple.
-            let tuple: (Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>) =
-                (text, trueOrFalseContent)
-            let tupleView: TupleView<(Text, _ConditionalContent<ModifiedTextType, ModifiedTextType>)> =
-                TupleView(tuple)
-            
-            return tupleView
-        }
-            // .onTapGesture
-            // { self.useBoldFont.toggle() }
-    }
+           
+            // Return tuple.
+            return TupleView((helloText, boldWorldTextOrWorldText))
+       }
+   }
 }
 
 
-/// Standard SwiftUI (with modifiers and branching).
 struct ConditionalContent_Switch_standard: View
 {
     
     
-    @State var useBoldFont = true
+    var alignment: TextAlignment = .leading
     
     
     var body: some View
     {
-        HStack
+        Group
         {
-            Text("Hello")
-            switch useBoldFont
+            switch alignment
             {
-                case false:
-                    Text("world!").padding(-5)
-                case true:
-                    Text("world!").bold().padding(-5)
+                case .leading:
+                    Text("leading.")
+                case .center:
+                    Text("center.")
+                case .trailing:
+                    Text("trailing.")
             }
         }
-            .onTapGesture
-            { self.useBoldFont.toggle() }
     }
 }
 
 
 /// SwiftUI (with modifiers and branching) dissected.
-struct ConditionalContent_Switch_dissected: View
+struct ConditionalContent_Switch_article: View
 {
 
     
-    @State var useBoldFont = true
+    enum `Type` { case text, image, color, divider, spacer }
+    var type: `Type` = .color
     
     
     var body: some View
     {
-        // Text (with modifiers).
-        let helloText: Text = Text("Hello")
-        let worldText: Text = Text("world!")
-        let modifiedWorldText: ModifiedContent<Text, _PaddingLayout> =
-            worldText.padding(-5) as! ModifiedContent<Text, _PaddingLayout>
-        let boldWorldText: Text = worldText.bold()
-        let modifiedBoldWorldText: ModifiedContent<Text, _PaddingLayout> =
-            boldWorldText.padding(-5) as! ModifiedContent<Text, _PaddingLayout>
-            
-        // Conditional content.
-        let groupedConditionalContent: Group<_ConditionalContent<ModifiedContent<Text, _PaddingLayout>, ModifiedContent<Text, _PaddingLayout>>> =
+        let switchGroup: Group<_ConditionalContent<_ConditionalContent<_ConditionalContent<Text, Image>, _ConditionalContent<Color, Divider>>, Spacer>> =
             Group
             {
-                switch useBoldFont
+                switch type
                 {
-                    case false:
-                        modifiedWorldText
-                    case true:
-                        modifiedBoldWorldText
+                    case .text:
+                        Text("Text")
+                    case .image:
+                        Image(systemName: "photo")
+                    case .color:
+                        Color.red
+                    case .divider:
+                        Divider()
+                    case .spacer:
+                        Spacer()
                 }
             }
         
-        // Let tuple creation and function builders standard this time.
-        return HStack
+        let ifElseGroup: Group<_ConditionalContent<_ConditionalContent<_ConditionalContent<Text, Image>, _ConditionalContent<Color, Divider>>, Spacer>> =
+            Group
+            {
+                if type == .text
+                { Text("Text") }
+                else if type == .image
+                { Image(systemName: "photo") }
+                else if type == .color
+                { Color.red }
+                else if type == .divider
+                { Divider() }
+                else // if type == .spacer
+                { Spacer() }
+            }
+        
+        let textOrImage: _ConditionalContent<Text, Image> =
+            type == .text ? ViewBuilder.buildEither(first: Text("Text")) : ViewBuilder.buildEither(second: Image(systemName: "photo"))
+        
+        let colorOrDivider: _ConditionalContent<Color, Divider> =
+            type == .color ? ViewBuilder.buildEither(first: Color.red) : ViewBuilder.buildEither(second: Divider())
+                
+        let textOrImageOrColorOrDivider: _ConditionalContent<_ConditionalContent<Text, Image>, _ConditionalContent<Color, Divider>> =
+            type == .text || type == .image ? ViewBuilder.buildEither(first: textOrImage) : ViewBuilder.buildEither(second: colorOrDivider)
+        
+        let textOrImageOrColorOrDividerOrSpacer: _ConditionalContent<_ConditionalContent<_ConditionalContent<Text, Image>, _ConditionalContent<Color, Divider>>, Spacer> =
+            type == .text || type == .image || type == .color || type == .divider ? ViewBuilder.buildEither(first: textOrImageOrColorOrDivider) : ViewBuilder.buildEither(second: Spacer())
+        
+        print(Mirror(reflecting: switchGroup))
+        print(Mirror(reflecting: ifElseGroup))
+        print(Mirror(reflecting: textOrImageOrColorOrDividerOrSpacer))
+        
+        return Group
         {
-            helloText
-            groupedConditionalContent
+            Text("Heading")
+            textOrImageOrColorOrDividerOrSpacer
         }
-            .onTapGesture
-            { useBoldFont.toggle() }
     }
 }
 
@@ -163,5 +168,5 @@ struct ConditionalContent_Previews: PreviewProvider
     
     
     static var previews: some View
-    { return ConditionalContent_If_inspect() }
+    { return ConditionalContent_Switch_article() }
 }

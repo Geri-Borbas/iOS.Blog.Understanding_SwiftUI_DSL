@@ -29,7 +29,7 @@ struct TupleView_standard: View
 }
 
 
-struct TupleView_without_Omitted_return: View
+struct TupleView_without_omitted_return_keyword: View
 {
         
     
@@ -40,6 +40,26 @@ struct TupleView_without_Omitted_return: View
             Text("Hello")
             Text("world!")
         }
+    }
+}
+
+
+struct TupleView_inspect_type: View
+{
+        
+    
+    var body: some View
+    {
+        let hStack = HStack
+        {
+            Text("Hello")
+            Text("world!")
+        }
+        
+        // Log.
+        print(Mirror(reflecting: hStack))
+        
+        return hStack
     }
 }
 
@@ -59,7 +79,39 @@ struct TupleView_without_Opaque_return_types: View
 }
 
 
-struct TupleView_explicit_Function_Builders: View
+struct TupleView_explicit_Function_Builders_1: View
+{
+        
+    
+    var body: HStack<TupleView<(Text, Text)>>
+    {
+        return HStack(content:
+        {
+            Text("Hello")
+            Text("world!")
+        })
+    }
+}
+
+
+struct TupleView_explicit_Function_Builders_2: View
+{
+    
+        
+    var body: HStack<TupleView<(Text, Text)>>
+    {
+        return HStack(content:
+        {
+            return ViewBuilder.buildBlock(
+                Text("Hello"),
+                Text("world!")
+            )
+        })
+    }
+}
+
+
+struct TupleView_explicit_Function_Builders_3: View
 {
     
     
@@ -67,47 +119,55 @@ struct TupleView_explicit_Function_Builders: View
     {
         return HStack(content:
         {
-            return ViewBuilder.buildBlock(
-                Text("Hello"), Text("world!") // Simple function argument list
-            )
+            let tupleView: TupleView<(Text, Text)> =
+                ViewBuilder.buildBlock(
+                    Text("Hello"),
+                    Text("world!")
+                )
+            
+            return tupleView
         })
     }
 }
 
 
-struct TupleView_explicit_and_typed_Function_Builders: View
+struct TupleView_explicit_Function_Builders_4: View
 {
     
     
     var body: HStack<TupleView<(Text, Text)>>
     {
-        // It is a closure returning the desired view type.
-        let closure: () -> TupleView<(Text, Text)> =
+        let contentClosure: () -> TupleView<(Text, Text)> =
         {
-            return ViewBuilder.buildBlock(
-                Text("Hello"), Text("world!")
-            )
+            let tupleView: TupleView<(Text, Text)> =
+                ViewBuilder.buildBlock(
+                    Text("Hello"),
+                    Text("world!")
+                )
+            
+            return tupleView
         }
         
-        return HStack(content: closure)
+        return HStack(content: contentClosure)
     }
 }
 
 
-struct TupleView_without_Function_Builders_and_typed: View
+struct TupleView_without_Function_Builders: View
 {
     
     
     var body: HStack<TupleView<(Text, Text)>>
     {
-        let closure: () -> TupleView<(Text, Text)> =
+        return HStack
         {
             return TupleView(
-                (Text("Hello"), Text("world!")) // A Tuple of views indeed
+                (
+                    Text("Hello"),
+                    Text("world!")
+                )
             )
         }
-        
-        return HStack(content: closure)
     }
 }
 
@@ -131,23 +191,6 @@ struct TupleView_dissected: View
         let horizontalStack: HStack<TupleView<(Text, Text)>> = HStack(content: closure)
         
         return horizontalStack
-    }
-}
-
-
-struct TupleView_without_function_builders: View
-{
-    
-    
-    var body: some View
-    {
-        return HStack(content:
-        {
-            return TupleView((
-                Text("Hello"),
-                Text("world!")
-            ))
-        })
     }
 }
 

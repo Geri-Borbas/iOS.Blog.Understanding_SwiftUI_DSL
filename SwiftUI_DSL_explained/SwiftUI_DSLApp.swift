@@ -16,6 +16,6 @@ struct SwiftUI_DSL_explainedApp: App
     var body: some Scene
     {
         WindowGroup
-        { ConditionalContent_If_inspect() }
+        { ConditionalContent_Switch_article() }
     }
 }
