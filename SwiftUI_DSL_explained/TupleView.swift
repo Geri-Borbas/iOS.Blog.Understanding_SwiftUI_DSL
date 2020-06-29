@@ -20,7 +20,7 @@ struct TupleView_standard: View
     
     var body: some View
     {
-        HStack
+        VStack
         {
             Text("Hello")
             Text("world!")
@@ -35,7 +35,7 @@ struct TupleView_without_omitted_return_keyword: View
     
     var body: some View
     {
-        return HStack
+        return VStack
         {
             Text("Hello")
             Text("world!")
@@ -50,16 +50,16 @@ struct TupleView_inspect_type: View
     
     var body: some View
     {
-        let hStack = HStack
+        let vStack = VStack
         {
             Text("Hello")
             Text("world!")
         }
         
         // Log.
-        print(Mirror(reflecting: hStack))
+        print(Mirror(reflecting: vStack))
         
-        return hStack
+        return vStack
     }
 }
 
@@ -68,9 +68,9 @@ struct TupleView_without_Opaque_return_types: View
 {
         
     
-    var body: HStack<TupleView<(Text, Text)>>
+    var body: VStack<TupleView<(Text, Text)>>
     {
-        return HStack
+        return VStack
         {
             Text("Hello")
             Text("world!")
@@ -83,9 +83,9 @@ struct TupleView_explicit_Function_Builders_1: View
 {
         
     
-    var body: HStack<TupleView<(Text, Text)>>
+    var body: VStack<TupleView<(Text, Text)>>
     {
-        return HStack(content:
+        return VStack(content:
         {
             Text("Hello")
             Text("world!")
@@ -98,9 +98,9 @@ struct TupleView_explicit_Function_Builders_2: View
 {
     
         
-    var body: HStack<TupleView<(Text, Text)>>
+    var body: VStack<TupleView<(Text, Text)>>
     {
-        return HStack(content:
+        return VStack(content:
         {
             return ViewBuilder.buildBlock(
                 Text("Hello"),
@@ -115,9 +115,9 @@ struct TupleView_explicit_Function_Builders_3: View
 {
     
     
-    var body: HStack<TupleView<(Text, Text)>>
+    var body: VStack<TupleView<(Text, Text)>>
     {
-        return HStack(content:
+        return VStack(content:
         {
             let tupleView: TupleView<(Text, Text)> =
                 ViewBuilder.buildBlock(
@@ -135,7 +135,7 @@ struct TupleView_explicit_Function_Builders_4: View
 {
     
     
-    var body: HStack<TupleView<(Text, Text)>>
+    var body: VStack<TupleView<(Text, Text)>>
     {
         let contentClosure: () -> TupleView<(Text, Text)> =
         {
@@ -148,7 +148,7 @@ struct TupleView_explicit_Function_Builders_4: View
             return tupleView
         }
         
-        return HStack(content: contentClosure)
+        return VStack(content: contentClosure)
     }
 }
 
@@ -157,9 +157,9 @@ struct TupleView_without_Function_Builders: View
 {
     
     
-    var body: HStack<TupleView<(Text, Text)>>
+    var body: VStack<TupleView<(Text, Text)>>
     {
-        return HStack
+        return VStack
         {
             return TupleView(
                 (
@@ -176,7 +176,7 @@ struct TupleView_dissected: View
 {
     
     
-    var body: HStack<TupleView<(Text, Text)>>
+    var body: VStack<TupleView<(Text, Text)>>
     {
         // Views.
         let helloText: Text = Text("Hello")
@@ -186,11 +186,11 @@ struct TupleView_dissected: View
         let tuple: (Text, Text) = (helloText, worldText)
         let tupleView: TupleView<(Text, Text)> = TupleView(tuple)
         
-        // Horizontal stack and its content closure.
+        // Vertical stack and its content closure.
         let closure: () -> TupleView<(Text, Text)> = { return tupleView }
-        let horizontalStack: HStack<TupleView<(Text, Text)>> = HStack(content: closure)
+        let verticalStack: VStack<TupleView<(Text, Text)>> = VStack(content: closure)
         
-        return horizontalStack
+        return verticalStack
     }
 }
 
