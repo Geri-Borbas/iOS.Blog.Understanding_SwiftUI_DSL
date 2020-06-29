@@ -1,8 +1,8 @@
-# SwiftUI DSL explained
-### Recreating a SwiftUI hierarchy in vanilla Swift
+# Understanding SwiftUI DSL
+### Recreating a SwiftUI hierarchies in vanilla Swift
 
 
-Complementary repository for article series [SwiftUI DSL explained]. The following snippets produce identical results (take a look at [`ContentView.swift`] for more).
+Complementary repository for article series [**Understanding SwiftUI DSL**]. The following snippets produce identical results (take a look at [`TupleView.swift`] for more).
 
 ```Swift
 struct ContentView: View
@@ -51,8 +51,8 @@ struct ContentView: View
 > Licensed under the [Open Source MIT license].
 
 
-[SwiftUI DSL explained]: http://blog.eppz.eu/swiftui-dsl-explained-tupleview
-[`ContentView.swift`]: SwiftUI_DSL_explained/ContentView.swift
+[**Understanding SwiftUI DSL**]: http://blog.eppz.eu/understanding-swiftui-dsl-tupleview-modifiedcontent/
+[TupleView.swift]: Understanding_SwiftUI_DSL/TupleView.swift
 [Open Source MIT license]: http://en.wikipedia.org/wiki/MIT_License
 
 

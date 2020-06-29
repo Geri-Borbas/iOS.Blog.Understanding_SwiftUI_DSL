@@ -5,7 +5,6 @@
 //  Created by Geri Borbás on 2020. 06. 27..
 //
 
-import Foundation
 import SwiftUI
 
 
@@ -40,9 +39,9 @@ struct ConditionalContent_If_article: View
     var useBoldFont = true
    
     
-    var body: HStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>
+    var body: VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>
     {
-        HStack
+        VStack
         {
             // Views.
             let helloText: Text = Text("Hello")
@@ -83,11 +82,11 @@ struct ConditionalContent_Switch_standard: View
             switch alignment
             {
                 case .leading:
-                    Text("leading.")
+                    Text("Alignment is set to leading.")
                 case .center:
-                    Text("center.")
+                    Text("Alignment is set to center.")
                 case .trailing:
-                    Text("trailing.")
+                    Text("Alignment is set to trailing.")
             }
         }
     }
@@ -100,7 +99,7 @@ struct ConditionalContent_Switch_article: View
 
     
     enum `Type` { case text, image, color, divider, spacer }
-    var type: `Type` = .color
+    var type: `Type` = .image
     
     
     var body: some View
@@ -154,7 +153,7 @@ struct ConditionalContent_Switch_article: View
         print(Mirror(reflecting: ifElseGroup))
         print(Mirror(reflecting: textOrImageOrColorOrDividerOrSpacer))
         
-        return Group
+        return VStack
         {
             Text("Heading")
             textOrImageOrColorOrDividerOrSpacer
@@ -163,10 +162,27 @@ struct ConditionalContent_Switch_article: View
 }
 
 
+// MARK: - Previews
+
+#if DEBUG
 struct ConditionalContent_Previews: PreviewProvider
 {
-    
-    
     static var previews: some View
-    { return ConditionalContent_Switch_article() }
+    {
+        Group
+        {
+            ConditionalContent_If_standard()
+                .previewDisplayName("ConditionalContent_If_standard")
+            
+            ConditionalContent_If_article()
+                .previewDisplayName("ConditionalContent_If_article")
+            
+            ConditionalContent_Switch_standard()
+                .previewDisplayName("ConditionalContent_Switch_standard")
+            
+            ConditionalContent_Switch_article()
+                .previewDisplayName("ConditionalContent_Switch_article")
+        }
+    }
 }
+#endif

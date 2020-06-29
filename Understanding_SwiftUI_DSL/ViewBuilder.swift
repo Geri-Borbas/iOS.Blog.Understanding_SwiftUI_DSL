@@ -5,7 +5,6 @@
 //  Created by Geri Borbás on 2020. 06. 27..
 //
 
-import Foundation
 import SwiftUI
 
 
@@ -78,6 +77,23 @@ extension ViewBuilder {
         C13 : View,
         C14 : View
     {
-        return TupleView((c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14))
+        .init((c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14))
     }
 }
+
+
+// MARK: - Previews
+
+#if DEBUG
+struct ViewBuilder_Previews: PreviewProvider
+{
+    static var previews: some View
+    {
+        Group
+        {
+            ViewBuilder_extension()
+                .previewDisplayName("ViewBuilder_extension")
+        }
+    }
+}
+#endif

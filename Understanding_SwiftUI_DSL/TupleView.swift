@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  TupleView.swift
 //  SwiftUI_DSL
 //
 //  Created by Geri Borbás on 2020. 06. 26..
@@ -8,11 +8,7 @@
 import SwiftUI
 
 
-// Nothing to do with bindings, or view updates, this is all compile time stuff.
-// Function builders are great indeed, but `TupleView` seems more central to the design.
-// Function builders are actually a way to assemble tuples from function arguments.
-// See `ModifiedContent_explicit_tuples` for more.
-
+// MARK: - TupleView
 
 struct TupleView_standard: View
 {
@@ -195,6 +191,9 @@ struct TupleView_dissected: View
 }
 
 
+
+// MARK: - ModifiedContent
+
 struct ModifiedContent_standard: View
 {
         
@@ -253,12 +252,64 @@ struct ModifiedContent_explicit_tuples: View
 }
 
 
+// MARK: - Previews
 
-
-struct ContentView_Previews: PreviewProvider
+#if DEBUG
+struct TupleView_Previews: PreviewProvider
 {
-    
-    
     static var previews: some View
-    { return ModifiedContent_dissected() }
+    {
+        Group
+        {
+            TupleView_standard()
+                .previewDisplayName("TupleView_standard")
+            
+            TupleView_without_omitted_return_keyword()
+                .previewDisplayName("TupleView_without_omitted_return_keyword")
+            
+            TupleView_inspect_type()
+                .previewDisplayName("TupleView_inspect_type")
+            
+            TupleView_without_Opaque_return_types()
+                .previewDisplayName("TupleView_without_Opaque_return_types")
+            
+            TupleView_explicit_Function_Builders_1()
+                .previewDisplayName("TupleView_explicit_Function_Builders_1")
+            
+            TupleView_explicit_Function_Builders_2()
+                .previewDisplayName("TupleView_explicit_Function_Builders_2")
+            
+            TupleView_explicit_Function_Builders_3()
+                .previewDisplayName("TupleView_explicit_Function_Builders_3")
+            
+            TupleView_explicit_Function_Builders_4()
+                .previewDisplayName("TupleView_explicit_Function_Builders_4")
+            
+            TupleView_without_Function_Builders()
+                .previewDisplayName("TupleView_without_Function_Builders")
+            
+            TupleView_dissected()
+                .previewDisplayName("TupleView_dissected")
+        }
+    }
 }
+
+
+struct ModifiedContent_Previews: PreviewProvider
+{
+    static var previews: some View
+    {
+        Group
+        {
+            ModifiedContent_standard()
+                .previewDisplayName("ModifiedContent_standard")
+            
+            ModifiedContent_dissected()
+                .previewDisplayName("ModifiedContent_dissected")
+            
+            ModifiedContent_explicit_tuples()
+                .previewDisplayName("ModifiedContent_explicit_tuples")
+        }
+    }
+}
+#endif
