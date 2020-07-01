@@ -203,7 +203,7 @@ struct ContentView: View
 
 
 [**Understanding SwiftUI DSL**]: http://blog.eppz.eu/understanding-swiftui-dsl-tupleview/
-[TupleView.swift]: Understanding_SwiftUI_DSL/TupleView.swift
+[`TupleView.swift`]: Understanding_SwiftUI_DSL/TupleView.swift
 [Open Source MIT license]: http://en.wikipedia.org/wiki/MIT_License
 
 
