@@ -34,7 +34,7 @@ struct ConditionalContent_If_article: View
 {
     
     
-    var useBoldFont = true
+    var showHand = true
    
     
     var body: VStack<TupleView<(Text, Text, Optional<Text>)>>
@@ -43,7 +43,7 @@ struct ConditionalContent_If_article: View
         let helloText: Text = Text("Hello")
         let worldText: Text = Text("world!").bold()
         let optionalHandText: Optional<Text> =
-            useBoldFont ? .some(Text("👋")) : .none
+            showHand ? .some(Text("👋")) : .none
        
         // Tuple and vertical stack.
         let tupleView = TupleView((helloText, worldText, optionalHandText))
@@ -453,6 +453,7 @@ struct ConditionalContent_Previews: PreviewProvider
             ConditionalContent_Switch_dissected_3()
                 .previewDisplayName("ConditionalContent_Switch_dissected_3")
             
+            // Wow, 11th child view! 😲
             ConditionalContent_Switch_interactive()
                 .previewDisplayName("ConditionalContent_Switch_interactive")
         }

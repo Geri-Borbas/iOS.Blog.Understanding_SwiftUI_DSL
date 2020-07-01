@@ -78,7 +78,7 @@ struct ContentView: View
 {
     
     
-    var useBoldFont = true
+    var showHand = true
    
     
     var body: VStack<TupleView<(Text, Text, Optional<Text>)>>
@@ -87,7 +87,7 @@ struct ContentView: View
         let helloText: Text = Text("Hello")
         let worldText: Text = Text("world!").bold()
         let optionalHandText: Optional<Text> =
-            useBoldFont ? .some(Text("👋")) : .none
+            showHand ? .some(Text("👋")) : .none
        
         // Tuple and vertical stack.
         let tupleView = TupleView((helloText, worldText, optionalHandText))
