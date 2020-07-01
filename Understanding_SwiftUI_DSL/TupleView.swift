@@ -219,8 +219,7 @@ struct ModifiedContent_dissected: View
         let helloText: Text = Text("Hello")
         let worldText: Text = Text("world!")
         let boldWorldText: Text = worldText.bold()
-        let modifiedBoldWorldText: ModifiedContent<Text, _PaddingLayout> =
-            boldWorldText.padding(-5) as! ModifiedContent<Text, _PaddingLayout>
+        let modifiedBoldWorldText: ModifiedContent<Text, _PaddingLayout> = boldWorldText.padding(-5) as! ModifiedContent<Text, _PaddingLayout>
         
         // Tuple and tuple view.
         let tuple: (Text, ModifiedContent<Text, _PaddingLayout>) = (helloText, modifiedBoldWorldText)

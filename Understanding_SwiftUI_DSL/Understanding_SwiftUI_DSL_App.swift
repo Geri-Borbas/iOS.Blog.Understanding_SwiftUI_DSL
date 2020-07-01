@@ -16,6 +16,6 @@ struct Understanding_SwiftUI_DSL_App: App
     var body: some Scene
     {
         WindowGroup
-        { ConditionalContent_Switch_article() }
+        { ConditionalContent_Switch_interactive() }
     }
 }
