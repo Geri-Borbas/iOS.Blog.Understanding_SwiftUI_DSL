@@ -202,8 +202,8 @@ struct ContentView: View
 > Licensed under the [Open Source MIT license].
 
 
-[**Understanding SwiftUI DSL**]: http://blog.eppz.eu/understanding-swiftui-dsl-tupleview-modifiedcontent/
-[TupleView.swift]: Understanding_SwiftUI_DSL/TupleView.swift
+[**Understanding SwiftUI DSL**]: http://blog.eppz.eu/understanding-swiftui-dsl-tupleview/
+[`TupleView.swift`]: Understanding_SwiftUI_DSL/TupleView.swift
 [Open Source MIT license]: http://en.wikipedia.org/wiki/MIT_License
 
 
