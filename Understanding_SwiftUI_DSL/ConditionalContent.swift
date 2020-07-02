@@ -246,7 +246,7 @@ struct ConditionalContent_Switch_dissected_1: View
                 ? ViewBuilder.buildEither(first: textOrImageOrColorOrDivider)
                 : ViewBuilder.buildEither(second: Spacer())
         
-        let group: SwitchGroupType = Group { textOrImageOrColorOrDividerOrSpacer }
+        let group: SwitchGroupType = Group(content: { return textOrImageOrColorOrDividerOrSpacer })
         return group
     }
 }
@@ -262,9 +262,9 @@ struct ConditionalContent_Switch_dissected_2: View
     var body: some View
     {
         let group: SwitchGroupType =
-            Group
+            Group(content:
             {
-                type == .text || type == .image || type == .color || type == .divider
+                return type == .text || type == .image || type == .color || type == .divider
                     ? ViewBuilder.buildEither(
                         first:
                         (
@@ -290,7 +290,7 @@ struct ConditionalContent_Switch_dissected_2: View
                     : ViewBuilder.buildEither(
                         second: Spacer()
                     )
-            }
+            })
         
         return group
     }
@@ -318,7 +318,7 @@ struct ConditionalContent_Switch_dissected_3: View
             >
         >
     {
-        return Group
+        return Group(content:
         {
             switch type
             {
@@ -359,7 +359,7 @@ struct ConditionalContent_Switch_dissected_3: View
                         second: Spacer()
                     )
             }
-        }
+        })
     }
 }
 
