@@ -16,11 +16,12 @@
 
 /* Begin PBXFileReference section */
 		552B2FEA24A793DE0091413B /* ConditionalContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalContent.swift; sourceTree = "<group>"; };
+		558025D624C1355300AEB6F9 /* .swiftlint.yml */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; tabWidth = 2; };
 		559CF6A824A62DFF000F8AEF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		55AE26D224A6AC1C00CBECBC /* ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
 		55D1CA6C24A5722300B7D8CF /* Understanding_SwiftUI_DSL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Understanding_SwiftUI_DSL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D1CA6F24A5722300B7D8CF /* Understanding_SwiftUI_DSL_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Understanding_SwiftUI_DSL_App.swift; sourceTree = "<group>"; };
-		55D1CA7124A5722300B7D8CF /* TupleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TupleView.swift; sourceTree = "<group>"; };
+		55D1CA7124A5722300B7D8CF /* TupleView.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = TupleView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		55D1CA7324A5722500B7D8CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55D1CA7824A5722500B7D8CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -39,6 +40,7 @@
 		55D1CA6324A5722300B7D8CF = {
 			isa = PBXGroup;
 			children = (
+				558025D624C1355300AEB6F9 /* .swiftlint.yml */,
 				559CF6A824A62DFF000F8AEF /* README.md */,
 				55D1CA6E24A5722300B7D8CF /* Understanding_SwiftUI_DSL */,
 				55D1CA6D24A5722300B7D8CF /* Products */,
@@ -76,6 +78,7 @@
 				55D1CA6824A5722300B7D8CF /* Sources */,
 				55D1CA6924A5722300B7D8CF /* Frameworks */,
 				55D1CA6A24A5722300B7D8CF /* Resources */,
+				558025D524C134FE00AEB6F9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -128,6 +131,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		558025D524C134FE00AEB6F9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55D1CA6824A5722300B7D8CF /* Sources */ = {

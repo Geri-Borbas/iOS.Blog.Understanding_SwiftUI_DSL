@@ -7,14 +7,10 @@ Complementary repository for article series [**Understanding SwiftUI DSL**]. The
 #### `TupleView`, `ModifiedContent`
 
 ```Swift
-struct ContentView: View
-{
-        
-    
-    var body: some View
-    {
-        HStack
-        {
+struct ContentView: View {
+
+   var body: some View {
+        HStack {
             Text("Hello")
             Text("world!").bold().padding(-5)
         }
@@ -23,12 +19,10 @@ struct ContentView: View
 ```
 
 ```Swift
-struct ContentView: View
-{
+struct ContentView: View {
     
+    var body: HStack<TupleView<(Text, ModifiedContent<Text, _PaddingLayout>)>> {
     
-    var body: HStack<TupleView<(Text, ModifiedContent<Text, _PaddingLayout>)>>
-    {
         // Text (with modifiers).
         let helloText: Text = Text("Hello")
         let worldText: Text = Text("world!")
@@ -52,17 +46,13 @@ struct ContentView: View
 #### `_ConditionalContent` (`if` statement)
 
 ```Swift
-struct ContentView: View
-{
+struct ContentView: View {
 
-    
     var showHand = true
     
-    
-    var body: some View
-    {
-        VStack
-        {
+    var body: some View {
+        VStack {
+        
             Text("Hello")
             Text("world!").bold()
             
@@ -74,15 +64,12 @@ struct ContentView: View
 ```
 
 ```Swift
-struct ContentView: View
-{
-    
+struct ContentView: View {
     
     var showHand = true
    
+    var body: VStack<TupleView<(Text, Text, Optional<Text>)>> {
     
-    var body: VStack<TupleView<(Text, Text, Optional<Text>)>>
-    {
         // Views.
         let helloText: Text = Text("Hello")
         let worldText: Text = Text("world!").bold()
@@ -102,27 +89,22 @@ struct ContentView: View
 struct ContentView: View
 {
     
-    
     enum `Type` { case text, image, color, divider, spacer }
     var type: `Type` = .image
     
-    
-    var body: some View
-    {
-        Group
-        {
-            switch type
-            {
-                case .text:
-                    Text("Text")
-                case .image:
-                    Image(systemName: "photo")
-                case .color:
-                    Color.red
-                case .divider:
-                    Divider()
-                case .spacer:
-                    Spacer()
+    var body: some View {
+        Group {
+            switch type {
+            case .text:
+                Text("Text")
+            case .image:
+                Image(systemName: "photo")
+            case .color:
+                Color.red
+            case .divider:
+                Divider()
+            case .spacer:
+                Spacer()
             }
         }
     }
@@ -130,68 +112,58 @@ struct ContentView: View
 ```
 
 ```Swift
-struct ContentView: View
-{
-    
+struct ContentView: View {
     
     enum `Type` { case text, image, color, divider, spacer }
     var type: `Type` = .image
 
-
-    var body:
-        Group
-        <
-            _ConditionalContent
-            <
-                _ConditionalContent
-                <
-                    _ConditionalContent<Text, Image>,
-                    _ConditionalContent<Color, Divider>
-                >,
-                Spacer
-            >
+    var body: Group<
+        _ConditionalContent<
+            _ConditionalContent<
+                _ConditionalContent<Text, Image>,
+                _ConditionalContent<Color, Divider>
+            >,
+            Spacer
         >
-    {
-        return Group
-        {
-            switch type
-            {
-                case .text:
-                    return ViewBuilder.buildEither(
+    > {
+        return Group {
+            switch type {
+            case .text:
+                return ViewBuilder.buildEither(
+                    first: ViewBuilder.buildEither(
                         first: ViewBuilder.buildEither(
-                            first: ViewBuilder.buildEither(
-                                first: Text("Text")
-                            )
+                            first: Text("Text")
                         )
                     )
-                case .image:
-                    return ViewBuilder.buildEither(
+                )
+            case .image:
+                return ViewBuilder.buildEither(
+                    first: ViewBuilder.buildEither(
                         first: ViewBuilder.buildEither(
-                            first: ViewBuilder.buildEither(
-                                second: Image(systemName: "photo")
-                            )
+                            second: Image(systemName: "photo")
                         )
                     )
-                case .color:
-                    return ViewBuilder.buildEither(
-                        first: ViewBuilder.buildEither(
-                            second: ViewBuilder.buildEither(
-                                first: Color.red
-                            )
+                )
+            case .color:
+                return ViewBuilder.buildEither(
+                    first: ViewBuilder.buildEither(
+                        second: ViewBuilder.buildEither(
+                            first: Color.red
                         )
                     )
-                case .divider:
-                    return ViewBuilder.buildEither(
-                        first: ViewBuilder.buildEither(
-                            second: ViewBuilder.buildEither(
-                                second: Divider()
-                            )
+                )
+            case .divider:
+                return ViewBuilder.buildEither(
+                    first: ViewBuilder.buildEither(
+                        second: ViewBuilder.buildEither(
+                            second: Divider()
                         )
                     )
-                case .spacer:
-                    return ViewBuilder.buildEither(
-                        second: Spacer()
-                    )
+                )
+            case .spacer:
+                return ViewBuilder.buildEither(
+                    second: Spacer()
+                )
             }
         }
     }

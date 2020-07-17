@@ -7,47 +7,34 @@
 
 import SwiftUI
 
-
 // MARK: - TupleView
 
-struct TupleView_standard: View
-{
-        
+struct TupleView_standard: View {
     
-    var body: some View
-    {
-        VStack
-        {
+    var body: some View {
+        VStack {
             Text("Hello")
             Text("world!")
         }
     }
 }
 
-
-struct TupleView_without_omitted_return_keyword: View
-{
-        
+struct TupleView_without_omitted_return_keyword: View {
     
-    var body: some View
-    {
-        return VStack
-        {
+    var body: some View {
+        return VStack {
             Text("Hello")
             Text("world!")
         }
     }
 }
 
-
-struct TupleView_inspect_type: View
-{
+struct TupleView_inspect_type: View {
         
-    
-    var body: some View
-    {
-        let vStack = VStack
-        {
+    var body: some View {
+        
+        // Vertical stack.
+        let vStack = VStack {
             Text("Hello")
             Text("world!")
         }
@@ -59,45 +46,31 @@ struct TupleView_inspect_type: View
     }
 }
 
-
-struct TupleView_without_Opaque_return_types: View
-{
+struct TupleView_without_Opaque_return_types: View {
         
-    
-    var body: VStack<TupleView<(Text, Text)>>
-    {
-        return VStack
-        {
+    var body: VStack<TupleView<(Text, Text)>> {
+        return VStack {
             Text("Hello")
             Text("world!")
         }
     }
 }
 
-
-struct TupleView_explicit_Function_Builders_1: View
-{
+struct TupleView_explicit_Function_Builders_1: View {
         
-    
-    var body: VStack<TupleView<(Text, Text)>>
-    {
-        return VStack(content:
-        {
+    var body: VStack<TupleView<(Text, Text)>> {
+        return VStack(content: {
             Text("Hello")
             Text("world!")
         })
     }
+    
 }
 
-
-struct TupleView_explicit_Function_Builders_2: View
-{
+struct TupleView_explicit_Function_Builders_2: View {
     
-        
-    var body: VStack<TupleView<(Text, Text)>>
-    {
-        return VStack(content:
-        {
+    var body: VStack<TupleView<(Text, Text)>> {
+        return VStack(content: {
             return ViewBuilder.buildBlock(
                 Text("Hello"),
                 Text("world!")
@@ -106,15 +79,11 @@ struct TupleView_explicit_Function_Builders_2: View
     }
 }
 
-
-struct TupleView_explicit_Function_Builders_3: View
-{
+struct TupleView_explicit_Function_Builders_3: View {
     
-    
-    var body: VStack<TupleView<(Text, Text)>>
-    {
-        return VStack(content:
-        {
+    var body: VStack<TupleView<(Text, Text)>> {
+        return VStack(content: {
+            
             let tupleView: TupleView<(Text, Text)> =
                 ViewBuilder.buildBlock(
                     Text("Hello"),
@@ -126,15 +95,11 @@ struct TupleView_explicit_Function_Builders_3: View
     }
 }
 
-
-struct TupleView_explicit_Function_Builders_4: View
-{
+struct TupleView_explicit_Function_Builders_4: View {
     
-    
-    var body: VStack<TupleView<(Text, Text)>>
-    {
-        let contentClosure: () -> TupleView<(Text, Text)> =
-        {
+    var body: VStack<TupleView<(Text, Text)>> {
+        let contentClosure: () -> TupleView<(Text, Text)> = {
+            
             let tupleView: TupleView<(Text, Text)> =
                 ViewBuilder.buildBlock(
                     Text("Hello"),
@@ -148,15 +113,10 @@ struct TupleView_explicit_Function_Builders_4: View
     }
 }
 
-
-struct TupleView_without_Function_Builders: View
-{
+struct TupleView_without_Function_Builders: View {
     
-    
-    var body: VStack<TupleView<(Text, Text)>>
-    {
-        return VStack
-        {
+    var body: VStack<TupleView<(Text, Text)>> {
+        return VStack {
             return TupleView(
                 (
                     Text("Hello"),
@@ -167,13 +127,10 @@ struct TupleView_without_Function_Builders: View
     }
 }
 
-
-struct TupleView_dissected: View
-{
+struct TupleView_dissected: View {
     
-    
-    var body: VStack<TupleView<(Text, Text)>>
-    {
+    var body: VStack<TupleView<(Text, Text)>> {
+        
         // Views.
         let helloText: Text = Text("Hello")
         let worldText: Text = Text("world!")
@@ -190,35 +147,27 @@ struct TupleView_dissected: View
     }
 }
 
-
-
 // MARK: - ModifiedContent
 
-struct ModifiedContent_standard: View
-{
+struct ModifiedContent_standard: View {
         
-    
-    var body: some View
-    {
-        HStack
-        {
+    var body: some View {
+        HStack {
             Text("Hello")
             Text("world!").bold().padding(-5)
         }
     }
 }
 
-
-struct ModifiedContent_dissected: View
-{
+struct ModifiedContent_dissected: View {
     
-    
-    var body: HStack<TupleView<(Text, ModifiedContent<Text, _PaddingLayout>)>>
-    {
+    var body: HStack<TupleView<(Text, ModifiedContent<Text, _PaddingLayout>)>> {
+        
         // Text (with modifiers).
         let helloText: Text = Text("Hello")
         let worldText: Text = Text("world!")
         let boldWorldText: Text = worldText.bold()
+        // swiftlint:disable:next force_cast
         let modifiedBoldWorldText: ModifiedContent<Text, _PaddingLayout> = boldWorldText.padding(-5) as! ModifiedContent<Text, _PaddingLayout>
         
         // Tuple and tuple view.
@@ -233,33 +182,26 @@ struct ModifiedContent_dissected: View
     }
 }
 
+struct ModifiedContent_explicit_tuples: View {
 
-struct ModifiedContent_explicit_tuples: View
-{
-    
-    
-    var body: some View
-    {
-        return HStack(content:
-        {
-            return TupleView((
-                Text("Hello"),
-                Text("world!").bold().padding(-5)
-            ))
+    var body: some View {
+        return HStack(content: {
+            return TupleView(
+                (
+                    Text("Hello"),
+                    Text("world!").bold().padding(-5)
+                )
+            )
         })
     }
 }
 
-
 // MARK: - Previews
 
 #if DEBUG
-struct TupleView_Previews: PreviewProvider
-{
-    static var previews: some View
-    {
-        Group
-        {
+struct TupleView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
             TupleView_standard()
                 .previewDisplayName("TupleView_standard")
             
@@ -293,13 +235,9 @@ struct TupleView_Previews: PreviewProvider
     }
 }
 
-
-struct ModifiedContent_Previews: PreviewProvider
-{
-    static var previews: some View
-    {
-        Group
-        {
+struct ModifiedContent_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
             ModifiedContent_standard()
                 .previewDisplayName("ModifiedContent_standard")
             
