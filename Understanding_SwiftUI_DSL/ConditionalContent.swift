@@ -14,6 +14,7 @@ struct ConditionalContent_If_standard: View {
     
     var body: some View {
         VStack {
+            
             Text("Hello")
             Text("world!").bold()
             
@@ -127,7 +128,8 @@ struct ConditionalContent_Switch_Switch_standard: View {
     var type: `Type` = .image
     
     var body: some View {
-        let group: SwitchGroupType =
+        
+        let group: Group<_ConditionalContent<_ConditionalContent<_ConditionalContent<Text, Image>, _ConditionalContent<Color, Divider>>, Spacer>> =
             Group {
                 switch type {
                 case .text:
@@ -152,6 +154,7 @@ struct ConditionalContent_Switch_If_else_standard: View {
     var type: `Type` = .image
     
     var body: some View {
+        
         let group: SwitchGroupType =
             Group {
                 if type == .text {
@@ -297,6 +300,67 @@ struct ConditionalContent_Switch_dissected_3: View {
         })
     }
 }
+
+#if _CONDITIONAL_CONTENT_WERE_PUBLIC
+struct ConditionalContent_Switch_dissected_4: View {
+    
+    var type: `Type` = .image
+        
+    var body: Group<
+        _ConditionalContent<
+            _ConditionalContent<
+                _ConditionalContent<Text, Image>,
+                _ConditionalContent<Color, Divider>
+            >,
+            Spacer
+        >
+    > {
+        return Group(content: {
+            switch type {
+            case .text:
+                return
+                    _ConditionalContent(storage: .trueContent(
+                        _ConditionalContent(storage: .trueContent(
+                            _ConditionalContent(storage: .trueContent(
+                                Text("Text")
+                            ))
+                        ))
+                    ))
+            case .image:
+                return
+                    _ConditionalContent(storage: .trueContent(
+                        _ConditionalContent(storage: .trueContent(
+                            _ConditionalContent(storage: .falseContent(
+                                Image(systemName: "photo")
+                            ))
+                        ))
+                    ))
+            case .color:
+                return
+                    _ConditionalContent(storage: .trueContent(
+                        _ConditionalContent(storage: .falseContent(
+                            _ConditionalContent(storage: .trueContent(
+                                Color.red
+                            ))
+                        ))
+                    ))
+            case .divider:
+                return _ConditionalContent(storage: .trueContent(
+                        _ConditionalContent(storage: .falseContent(
+                            _ConditionalContent(storage: .falseContent(
+                                Divider()
+                            ))
+                        ))
+                    ))
+            case .spacer:
+                return _ConditionalContent(storage: .falseContent(
+                    Spacer()
+                ))
+            }
+        })
+    }
+}
+#endif
 
 struct ConditionalContent_Switch_interactive: View {
     

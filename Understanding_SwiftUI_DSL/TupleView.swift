@@ -64,7 +64,6 @@ struct TupleView_explicit_Function_Builders_1: View {
             Text("world!")
         })
     }
-    
 }
 
 struct TupleView_explicit_Function_Builders_2: View {
@@ -98,6 +97,7 @@ struct TupleView_explicit_Function_Builders_3: View {
 struct TupleView_explicit_Function_Builders_4: View {
     
     var body: VStack<TupleView<(Text, Text)>> {
+        
         let contentClosure: () -> TupleView<(Text, Text)> = {
             
             let tupleView: TupleView<(Text, Text)> =
